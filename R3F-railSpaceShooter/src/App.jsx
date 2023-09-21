@@ -23,6 +23,7 @@ const App = () => {
         shadow-camera-left={-6.2}
         shadow-camera-right={6.4}
       />
+      <ambientLight intensity={0.5} />
 
       <DevScene>
         <SpaceShipContoller />
