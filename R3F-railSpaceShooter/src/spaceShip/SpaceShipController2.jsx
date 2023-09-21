@@ -4,6 +4,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 const SpaceShipContoller2 = () => {
+  const [subscribeKeys, getKeys] = useKeyboardControls();
   const prevMouseState = useRef({ x: 0, y: 0 });
   const groupRef = useRef();
   const reticlePlaneRef = useRef();
@@ -12,6 +13,7 @@ const SpaceShipContoller2 = () => {
   const reticleArgs = [1, 1];
 
   useFrame((state) => {
+    const { up, down, left, right } = getKeys();
     const mouseVPX = state.mouse.x * (state.viewport.width / 2);
     const mouseVPY = state.mouse.y * (state.viewport.height / 2);
     const parentOffsetX = reticlePlaneRef.current.parent.position.x;
@@ -20,6 +22,21 @@ const SpaceShipContoller2 = () => {
     const maxPlaneX = reticlePlaneArgs[0] / 2;
     const minPlaneY = -reticlePlaneArgs[1] / 2;
     const maxPlaneY = reticlePlaneArgs[1] / 2;
+    const moveSpeed = 0.09;
+    const reticleSpeed = 0.09;
+
+    // transform groupRef position with key press
+    if (up) {
+      groupRef.current.position.y += moveSpeed;
+    } else if (down) {
+      groupRef.current.position.y -= moveSpeed;
+    }
+
+    if (left) {
+      groupRef.current.position.x -= moveSpeed;
+    } else if (right) {
+      groupRef.current.position.x += moveSpeed;
+    }
 
     // reticleRef should follow mouse position
     // clamp reticleRef to min/max x dimension of reticlePlaneRef
@@ -93,23 +110,23 @@ const SpaceShipContoller2 = () => {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (minPlaneX < reticleRef.current.position.x) {
-        reticleRef.current.position.x -= 0.025;
+        reticleRef.current.position.x -= reticleSpeed;
       }
     } else if (state.mouse.x >= 0.95) {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (maxPlaneX > reticleRef.current.position.x) {
-        reticleRef.current.position.x += 0.025;
+        reticleRef.current.position.x += reticleSpeed;
       }
     } else if (mouseDelta.x < 0) {
       // standard reticle transform
       if (maxPlaneX > reticleRef.current.position.x) {
-        reticleRef.current.position.x += 0.025;
+        reticleRef.current.position.x += reticleSpeed;
       }
     } else if (mouseDelta.x > 0) {
       // standard reticle transform
       if (minPlaneX < reticleRef.current.position.x) {
-        reticleRef.current.position.x -= 0.025;
+        reticleRef.current.position.x -= reticleSpeed;
       }
     }
 
@@ -117,23 +134,23 @@ const SpaceShipContoller2 = () => {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (minPlaneY < reticleRef.current.position.y) {
-        reticleRef.current.position.y -= 0.025;
+        reticleRef.current.position.y -= reticleSpeed;
       }
     } else if (state.mouse.y >= 0.95) {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (maxPlaneY > reticleRef.current.position.y) {
-        reticleRef.current.position.y += 0.025;
+        reticleRef.current.position.y += reticleSpeed;
       }
     } else if (mouseDelta.y < 0) {
       // standard reticle transform
       if (maxPlaneY > reticleRef.current.position.y) {
-        reticleRef.current.position.y += 0.025;
+        reticleRef.current.position.y += reticleSpeed;
       }
     } else if (mouseDelta.y > 0) {
       // standard reticle transform
       if (minPlaneY < reticleRef.current.position.y) {
-        reticleRef.current.position.y -= 0.025;
+        reticleRef.current.position.y -= reticleSpeed;
       }
     }
     prevMouseState.current.x = state.mouse.x;
