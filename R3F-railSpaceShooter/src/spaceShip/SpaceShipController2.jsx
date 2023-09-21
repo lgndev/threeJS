@@ -43,33 +43,33 @@ const SpaceShipContoller2 = () => {
     }
 
     // move groupRef to mouse position overtime if mouse position is outside bounds of reticlePlaneRef
-    if (mouseVPX < minPlaneX + parentOffsetX) {
-      if (state.mouse.x < 0) {
-        groupRef.current.position.x -= 0.03;
-      } else {
-        groupRef.current.position.x += 0.03;
-      }
-    } else if (mouseVPX > maxPlaneX + parentOffsetX) {
-      if (state.mouse.x < 0) {
-        groupRef.current.position.x -= 0.03;
-      } else {
-        groupRef.current.position.x += 0.03;
-      }
-    }
+    // if (mouseVPX < minPlaneX + parentOffsetX) {
+    //   if (state.mouse.x < 0) {
+    //     groupRef.current.position.x -= 0.03;
+    //   } else {
+    //     groupRef.current.position.x += 0.03;
+    //   }
+    // } else if (mouseVPX > maxPlaneX + parentOffsetX) {
+    //   if (state.mouse.x < 0) {
+    //     groupRef.current.position.x -= 0.03;
+    //   } else {
+    //     groupRef.current.position.x += 0.03;
+    //   }
+    // }
 
-    if (mouseVPY < minPlaneY + parentOffsetY) {
-      if (state.mouse.y < 0) {
-        groupRef.current.position.y -= 0.03;
-      } else {
-        groupRef.current.position.y += 0.03;
-      }
-    } else if (mouseVPY > maxPlaneY + parentOffsetY) {
-      if (state.mouse.y < 0) {
-        groupRef.current.position.y -= 0.03;
-      } else {
-        groupRef.current.position.y += 0.03;
-      }
-    }
+    // if (mouseVPY < minPlaneY + parentOffsetY) {
+    //   if (state.mouse.y < 0) {
+    //     groupRef.current.position.y -= 0.03;
+    //   } else {
+    //     groupRef.current.position.y += 0.03;
+    //   }
+    // } else if (mouseVPY > maxPlaneY + parentOffsetY) {
+    //   if (state.mouse.y < 0) {
+    //     groupRef.current.position.y -= 0.03;
+    //   } else {
+    //     groupRef.current.position.y += 0.03;
+    //   }
+    // }
   });
   return (
     <group ref={groupRef}>

@@ -26,6 +26,10 @@ const App = () => {
       <ambientLight intensity={0.5} />
 
       <DevScene>
+        <mesh position={[4, 4, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="gray" />
+        </mesh>
         <SpaceShipContoller2 />
       </DevScene>
     </>
