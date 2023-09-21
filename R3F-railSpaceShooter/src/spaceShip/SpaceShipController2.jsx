@@ -4,11 +4,13 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 const SpaceShipContoller2 = () => {
+  const { nodes, materials } = useGLTF("/StarSparrowGLB.glb");
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const prevMouseState = useRef({ x: 0, y: 0 });
   const groupRef = useRef();
+  const sparrowMeshRef = useRef();
   const reticlePlaneRef = useRef();
-  const reticlePlaneArgs = [4, 4];
+  const reticlePlaneArgs = [6, 8];
   const reticleRef = useRef();
   const reticleArgs = [1, 1];
 
@@ -22,20 +24,20 @@ const SpaceShipContoller2 = () => {
     const maxPlaneX = reticlePlaneArgs[0] / 2;
     const minPlaneY = -reticlePlaneArgs[1] / 2;
     const maxPlaneY = reticlePlaneArgs[1] / 2;
-    const moveSpeed = 0.09;
-    const reticleSpeed = 0.09;
+    const moveSpeed = { x: 0.02, y: 0.01 };
+    const reticleSpeed = { x: 0.1, y: 0.1 };
 
     // transform groupRef position with key press
     if (up) {
-      groupRef.current.position.y += moveSpeed;
+      groupRef.current.position.y += moveSpeed.y;
     } else if (down) {
-      groupRef.current.position.y -= moveSpeed;
+      groupRef.current.position.y -= moveSpeed.y;
     }
 
     if (left) {
-      groupRef.current.position.x -= moveSpeed;
+      groupRef.current.position.x -= moveSpeed.x;
     } else if (right) {
-      groupRef.current.position.x += moveSpeed;
+      groupRef.current.position.x += moveSpeed.x;
     }
 
     // reticleRef should follow mouse position
@@ -110,23 +112,23 @@ const SpaceShipContoller2 = () => {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (minPlaneX < reticleRef.current.position.x) {
-        reticleRef.current.position.x -= reticleSpeed;
+        reticleRef.current.position.x -= reticleSpeed.x;
       }
     } else if (state.mouse.x >= 0.95) {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (maxPlaneX > reticleRef.current.position.x) {
-        reticleRef.current.position.x += reticleSpeed;
+        reticleRef.current.position.x += reticleSpeed.x;
       }
     } else if (mouseDelta.x < 0) {
       // standard reticle transform
       if (maxPlaneX > reticleRef.current.position.x) {
-        reticleRef.current.position.x += reticleSpeed;
+        reticleRef.current.position.x += reticleSpeed.x;
       }
     } else if (mouseDelta.x > 0) {
       // standard reticle transform
       if (minPlaneX < reticleRef.current.position.x) {
-        reticleRef.current.position.x -= reticleSpeed;
+        reticleRef.current.position.x -= reticleSpeed.x;
       }
     }
 
@@ -134,27 +136,30 @@ const SpaceShipContoller2 = () => {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (minPlaneY < reticleRef.current.position.y) {
-        reticleRef.current.position.y -= reticleSpeed;
+        reticleRef.current.position.y -= reticleSpeed.y;
       }
     } else if (state.mouse.y >= 0.95) {
       // edge case reticle transform
       // - when mouse reaches edge of screen
       if (maxPlaneY > reticleRef.current.position.y) {
-        reticleRef.current.position.y += reticleSpeed;
+        reticleRef.current.position.y += reticleSpeed.y;
       }
     } else if (mouseDelta.y < 0) {
       // standard reticle transform
       if (maxPlaneY > reticleRef.current.position.y) {
-        reticleRef.current.position.y += reticleSpeed;
+        reticleRef.current.position.y += reticleSpeed.y;
       }
     } else if (mouseDelta.y > 0) {
       // standard reticle transform
       if (minPlaneY < reticleRef.current.position.y) {
-        reticleRef.current.position.y -= reticleSpeed;
+        reticleRef.current.position.y -= reticleSpeed.y;
       }
     }
     prevMouseState.current.x = state.mouse.x;
     prevMouseState.current.y = state.mouse.y;
+
+    //
+    sparrowMeshRef.current.lookAt(reticleRef.current.position);
   });
   return (
     <group ref={groupRef}>
@@ -166,6 +171,16 @@ const SpaceShipContoller2 = () => {
         <planeGeometry args={reticleArgs} />
         <meshStandardMaterial wireframe wireframeLinewidth={2} color="red" />
       </mesh>
+      <mesh
+        ref={sparrowMeshRef}
+        geometry={nodes.StarSparrow1.geometry}
+        material={materials.StarSparrow_Yellow}
+        scale={0.001}
+        position={[0, 0, 10]}
+        rotation={[0, Math.PI, 0]}
+        // rotation={[-Math.PI / 2, Math.PI, 0]}
+        // rotation={[-Math.PI / 2 + 1, Math.PI + 1, 0]}
+      />
     </group>
   );
 };

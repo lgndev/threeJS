@@ -5,7 +5,7 @@ import SpaceShipContoller2 from "./spaceShip/SpaceShipController2";
 const App = () => {
   return (
     <>
-      <OrbitControls makeDefault />
+      {/* <OrbitControls makeDefault /> */}
       <PerspectiveCamera makeDefault position={[0, 0, 15]} />
       <axesHelper position={[0, 0, 0]} args={[2]} />
       <directionalLight
