@@ -6,7 +6,7 @@ import { Canvas } from "@react-three/fiber";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Canvas shadows style={{ backgroundColor: "purple" }}>
+    <Canvas shadows style={{ backgroundColor: "black" }}>
       <App />
     </Canvas>
   </React.StrictMode>

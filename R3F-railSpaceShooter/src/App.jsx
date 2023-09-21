@@ -1,6 +1,6 @@
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import DevScene from "./scenes/DevScene";
-import SpaceShipContoller from "./spaceShip/SpaceShipContoller";
+import SpaceShipContoller2 from "./spaceShip/SpaceShipController2";
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
       <ambientLight intensity={0.5} />
 
       <DevScene>
-        <SpaceShipContoller />
+        <SpaceShipContoller2 />
       </DevScene>
     </>
   );
