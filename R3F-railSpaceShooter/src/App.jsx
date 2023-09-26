@@ -1,11 +1,12 @@
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import DevScene from "./scenes/DevScene";
 import SpaceShipContoller2 from "./spaceShip/SpaceShipController2";
+import ControllerInput from "./spaceShip/ControllerInput";
 
 const App = () => {
   return (
     <>
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
       <PerspectiveCamera makeDefault position={[0, 0, 15]} />
       <axesHelper position={[0, 0, 0]} args={[2]} />
       <directionalLight
@@ -24,6 +25,7 @@ const App = () => {
         shadow-camera-right={6.4}
       />
       <ambientLight intensity={0.5} />
+      <ControllerInput />
 
       <DevScene>
         <mesh position={[4, 4, 0]}>
