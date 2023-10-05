@@ -1,5 +1,12 @@
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+
+import CharacterAnimationsDemo from "./characterAnimationsDemo";
 const App = () => {
-  return <></>;
+  return (
+    <>
+      <CharacterAnimationsDemo />
+    </>
+  );
 };
 
 export default App;
